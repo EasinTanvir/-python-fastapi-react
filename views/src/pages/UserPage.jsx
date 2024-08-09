@@ -7,10 +7,6 @@ const UserPage = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   const onFetchHandler = async (event) => {
-    const token = localStorage.getItem("access_token")
-      ? JSON.parse(localStorage.getItem("access_token"))
-      : null;
-
     try {
       const { data } = await api.get("/user");
 
@@ -18,6 +14,7 @@ const UserPage = () => {
       console.log(data);
     } catch (err) {
       console.log(err);
+      navigate("/login");
       console.log(err.response.data.detail);
     }
   };
