@@ -4,17 +4,19 @@ from sqlalchemy.orm import sessionmaker
 from typing import Annotated, List
 from sqlalchemy.orm import Session
 from fastapi import Depends
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-URL_DATABASE = 'mysql+pymysql://root:admin@localhost:3306/nibirs' 
-
+URL_DATABASE = os.getenv('DATABASE_URL')
 
 engine = create_engine(
     URL_DATABASE
 )
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
-
 
 def get_db():
     db = SessionLocal()
